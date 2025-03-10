@@ -1,6 +1,6 @@
 <?php
 session_start();
-$conn = new mysqli("localhost", "root", "", "givewell");
+$conn = new mysqli("localhost", "root", "", "givewell221");
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
@@ -29,34 +29,8 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'home';
   </style>
 </head>
 <body class="p-3">
-  <!-- Navigation Bar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="?page=home">Give Well</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item"><a class="nav-link" href="?page=about">About</a></li>
-        <li class="nav-item"><a class="nav-link" href="?page=create_campaign">Create Campaign</a></li>
-        <li class="nav-item"><a class="nav-link" href="?page=explore">Explore</a></li>
-        <?php if (isset($_SESSION['user'])): ?>
-          <li class="nav-item"><a class="nav-link" href="?page=dashboard">Dashboard</a></li>
-          <li class="nav-item"><a class="nav-link" href="?page=profile">Profile</a></li>
-          <?php if (($_SESSION['user']['Role'] ?? '') == 'Admin'): ?>
-            <li class="nav-item"><a class="nav-link" href="?page=admin_panel">Admin Panel</a></li>
-          <?php endif; ?>
-          <li class="nav-item"><a class="nav-link" href="?page=transfer_funds">Transfer Funds</a></li>
-          <li class="nav-item"><a class="nav-link" href="?page=logout">Logout</a></li>
-        <?php else: ?>
-          <li class="nav-item"><a class="nav-link" href="?page=login">Login/Register</a></li>
-        <?php endif; ?>
-      </ul>
-      <button id="mode-toggle" class="btn btn-secondary">Toggle Dark Mode</button>
-    </div>
-  </nav>
-  
-  <div class="container">
+<?php include 'includes/navbar.php'; ?>
+<div class="container">
   <?php
   switch ($page) {
     case 'home':
@@ -596,15 +570,15 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'home';
       echo '<h1>404 - Page Not Found</h1>';
   }
   ?>
-  </div>
-  
-  <script>
-    document.getElementById("mode-toggle").addEventListener("click", function(){
-      document.body.classList.toggle("dark-mode");
-    });
-  </script>
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</div>
+<?php include 'includes/footer.php'; ?>
+<script>
+  document.getElementById("mode-toggle").addEventListener("click", function(){
+    document.body.classList.toggle("dark-mode");
+  });
+</script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
