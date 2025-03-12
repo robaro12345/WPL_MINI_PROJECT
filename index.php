@@ -57,17 +57,15 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'home';
     </div>
   </nav>
   
-  <div class="container">
+  <div class="">
   <?php
   switch ($page) {
     case 'home':
-      echo '<h1>Welcome to Give Well</h1>';
-      echo '<p>Your community donation platform. Connect with causes, donate, and make a difference.</p>';
+      include 'home.php';
       break;
       
     case 'about':
-      echo '<h1>About Give Well</h1>';
-      echo '<p>Our mission is to bridge communities and support campaigns through transparent donations and engagement.</p>';
+      include 'about.php';
       break;
       
     case 'create_campaign':
