@@ -45,7 +45,7 @@ p { color: #555; }
 <div class="hero-section">
     <h1>Empower Change with Give Well</h1>
     <p>Join a global community dedicated to making an impact. Discover and support meaningful causes effortlessly.</p>
-    <a href="?page=campaigns" class="btn btn-primary">Explore Campaigns</a>
+    <a href="?page=explore" class="btn btn-primary">Explore Campaigns</a>
 </div>
 
 <!-- Featured Campaigns -->

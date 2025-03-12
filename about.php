@@ -87,7 +87,7 @@ p { color: #555; }
 <div class="cta">
     <h2>Be a Part of the Change</h2>
     <p>Support a campaign today and make a real difference.</p>
-    <a href="?page=campaigns" class="btn">Explore Campaigns</a>
+    <a href="?page=explore" class="btn">Explore Campaigns</a>
 </div>
 ';
 ?>
