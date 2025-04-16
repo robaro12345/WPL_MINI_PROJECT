@@ -227,7 +227,7 @@ p { color: #555; }
                             <img src="https://ui-avatars.com/api/?name=John+Doe&background=4361ee&color=fff" 
                                  alt="John Doe" class="rounded-circle">
                         </div>
-                        <h4>John Doe</h4>
+                        <h4>altf4</h4>
                         <p class="text-primary mb-2">Founder & CEO</p>
                         <p class="text-muted">Blockchain expert with 10+ years in fintech</p>
                     </div>
@@ -240,7 +240,7 @@ p { color: #555; }
                             <img src="https://ui-avatars.com/api/?name=Jane+Smith&background=4361ee&color=fff" 
                                  alt="Jane Smith" class="rounded-circle">
                         </div>
-                        <h4>Jane Smith</h4>
+                        <h4>Hemlock Dropworth</h4>
                         <p class="text-primary mb-2">Head of Operations</p>
                         <p class="text-muted">Former non-profit executive</p>
                     </div>
@@ -253,7 +253,7 @@ p { color: #555; }
                             <img src="https://ui-avatars.com/api/?name=Mike+Johnson&background=4361ee&color=fff" 
                                  alt="Mike Johnson" class="rounded-circle">
                         </div>
-                        <h4>Mike Johnson</h4>
+                        <h4>TBNRobaro</h4>
                         <p class="text-primary mb-2">Technical Lead</p>
                         <p class="text-muted">Smart contract developer</p>
                     </div>

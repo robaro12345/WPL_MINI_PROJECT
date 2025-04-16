@@ -1,6 +1,6 @@
 <?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['campaign'])) {
-    $campaignID = intval($_POST['campaign']);
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['campaign_id'])) {
+    $campaignID = intval($_POST['campaign_id']);
     $amount = floatval($_POST['amount']);
 
     if ($amount <= 0) {
