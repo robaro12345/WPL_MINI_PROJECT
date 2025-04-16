@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         'Fname' => $user['Fname'],
                         'Lname' => $user['Lname'],
                         'Email' => $user['Email'],
-                        'Role' => $user['Role'],
+                        'Role' => $user['Role'], // Ensure this is set correctly
                         'Wallet_Address' => $user['Wallet_Address']
                     ];
                     

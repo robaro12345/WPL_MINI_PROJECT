@@ -9,6 +9,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['campaign'])) {
     }
 
     if (isset($_SESSION['user'])) {
+        if ($_SESSION['user']['Role'] === 'Admin') {
+            echo '<div class="alert alert-danger">Admins are not allowed to make donations.</div>';
+            exit;
+        }
+
         $userID = $_SESSION['user']['UserID'];
         $wallet = $_SESSION['user']['Wallet_Address'];
     } else {

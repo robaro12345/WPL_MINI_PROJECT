@@ -35,59 +35,267 @@ p { color: #555; }
 .cta h2 { font-size: 2rem; }
 .cta .btn { background: white; color: #007bff; font-weight: bold; padding: 12px 30px; }
 
+.about-hero {
+    background: linear-gradient(135deg, #4361ee 0%, #3046eb 100%);
+    padding: 100px 0;
+}
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url(\'data:image/svg+xml,<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg"><rect width="20" height="20" fill="none"/><circle cx="3" cy="3" r="1" fill="rgba(255,255,255,0.1)"/></svg>\');
+}
+.mission-icon {
+    width: 100px;
+    height: 100px;
+    background: rgba(67,97,238,0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+.mission-icon i {
+    font-size: 40px;
+    color: #4361ee;
+}
+.value-icon {
+    width: 60px;
+    height: 60px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+.step-circle {
+    width: 50px;
+    height: 50px;
+    background: #4361ee;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0 auto;
+}
+.team-avatar img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+}
+.contact-item {
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+.contact-item:hover {
+    transform: translateY(-5px);
+}
+.hover-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.hover-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important;
+}
 </style>
 
-<!-- Hero Section -->
-<div class="hero-section">
-    <h1>About Give Well</h1>
-    <p>Connecting communities with causes, one donation at a time.</p>
-</div>
-
-<!-- Mission & Vision -->
-<div class="container mission-section">
-    <div class="row">
-        <div class="col-md-6">
-            <i class="fas fa-bullseye"></i>
-            <h2>Our Mission</h2>
-            <p>We aim to bridge communities and support campaigns through transparent donations and active engagement.</p>
-        </div>
-        <div class="col-md-6">
-            <i class="fas fa-lightbulb"></i>
-            <h2>Our Vision</h2>
-            <p>We envision a world where generosity is effortless, and every campaign gets the support it deserves.</p>
+<!-- About Hero Section -->
+<div class="about-hero text-white position-relative overflow-hidden">
+    <div class="hero-overlay"></div>
+    <div class="container position-relative py-5">
+        <div class="row align-items-center py-5">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1 class="display-4 font-weight-bold mb-4">About Give Well</h1>
+                <p class="lead mb-0" style="color: #ffd700;">Empowering communities through transparent and secure blockchain-based donations</p>
+            </div>
         </div>
     </div>
 </div>
 
-<!-- Why Choose Us -->
-<div class="why-choose-us">
+<!-- Mission Section -->
+<div class="container">
+    <div class="row justify-content-center mt-n5 mb-5">
+        <div class="col-lg-10">
+            <div class="card border-0 shadow-lg">
+                <div class="card-body p-5">
+                    <div class="row align-items-center">
+                        <div class="col-md-4 text-center mb-4 mb-md-0">
+                            <div class="mission-icon mb-3">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <h4 class="text-primary">Our Mission</h4>
+                        </div>
+                        <div class="col-md-8">
+                            <p class="lead text-muted mb-0">
+                                To create a transparent, secure, and efficient platform that connects donors with meaningful causes, 
+                                leveraging blockchain technology to ensure trust and accountability in charitable giving.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Values Section -->
+<section class="py-5">
     <div class="container">
-        <h2 class="text-center mb-4">🌍 Why Choose Give Well?</h2>
+        <h2 class="text-center mb-5">Our Core Values</h2>
         <div class="row">
-            <div class="col-md-4 icon-box">
-                <i class="fas fa-hand-holding-heart"></i>
-                <h5>Transparent Giving</h5>
-                <p>Every donation is trackable, ensuring funds reach the right place.</p>
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow-sm h-100 hover-card">
+                    <div class="card-body text-center p-4">
+                        <div class="value-icon bg-primary text-white rounded-circle mb-3">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <h4>Security</h4>
+                        <p class="text-muted">Utilizing blockchain technology to ensure secure and transparent transactions for all donations.</p>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-4 icon-box">
-                <i class="fas fa-users"></i>
-                <h5>Community-Driven</h5>
-                <p>Our platform thrives on trust, support, and real impact.</p>
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow-sm h-100 hover-card">
+                    <div class="card-body text-center p-4">
+                        <div class="value-icon bg-success text-white rounded-circle mb-3">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h4>Trust</h4>
+                        <p class="text-muted">Building trust through transparent processes and verified campaigns.</p>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-4 icon-box">
-                <i class="fas fa-lock"></i>
-                <h5>Secure & Easy</h5>
-                <p>Seamless and safe transactions, including crypto donations.</p>
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow-sm h-100 hover-card">
+                    <div class="card-body text-center p-4">
+                        <div class="value-icon bg-info text-white rounded-circle mb-3">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <h4>Community</h4>
+                        <p class="text-muted">Fostering a global community of generous donors and impactful campaigners.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</section>
 
-<!-- Call to Action -->
-<div class="cta">
-    <h2>Be a Part of the Change</h2>
-    <p>Support a campaign today and make a real difference.</p>
-    <a href="?page=explore" class="btn">Explore Campaigns</a>
-</div>
+<!-- How It Works Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">How It Works</h2>
+        <div class="row">
+            <div class="col-md-3 text-center mb-4">
+                <div class="step-circle mb-3">1</div>
+                <h5>Create Account</h5>
+                <p class="text-muted">Sign up and verify your identity to start creating or supporting campaigns.</p>
+            </div>
+            <div class="col-md-3 text-center mb-4">
+                <div class="step-circle mb-3">2</div>
+                <h5>Connect Wallet</h5>
+                <p class="text-muted">Link your cryptocurrency wallet to enable secure transactions.</p>
+            </div>
+            <div class="col-md-3 text-center mb-4">
+                <div class="step-circle mb-3">3</div>
+                <h5>Choose Campaign</h5>
+                <p class="text-muted">Browse and select campaigns that align with your values.</p>
+            </div>
+            <div class="col-md-3 text-center mb-4">
+                <div class="step-circle mb-3">4</div>
+                <h5>Make Impact</h5>
+                <p class="text-muted">Donate securely and track your contribution\'s impact.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Team Section -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Meet Our Team</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow-sm hover-card">
+                    <div class="card-body text-center p-4">
+                        <div class="team-avatar mb-3">
+                            <img src="https://ui-avatars.com/api/?name=John+Doe&background=4361ee&color=fff" 
+                                 alt="John Doe" class="rounded-circle">
+                        </div>
+                        <h4>John Doe</h4>
+                        <p class="text-primary mb-2">Founder & CEO</p>
+                        <p class="text-muted">Blockchain expert with 10+ years in fintech</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow-sm hover-card">
+                    <div class="card-body text-center p-4">
+                        <div class="team-avatar mb-3">
+                            <img src="https://ui-avatars.com/api/?name=Jane+Smith&background=4361ee&color=fff" 
+                                 alt="Jane Smith" class="rounded-circle">
+                        </div>
+                        <h4>Jane Smith</h4>
+                        <p class="text-primary mb-2">Head of Operations</p>
+                        <p class="text-muted">Former non-profit executive</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow-sm hover-card">
+                    <div class="card-body text-center p-4">
+                        <div class="team-avatar mb-3">
+                            <img src="https://ui-avatars.com/api/?name=Mike+Johnson&background=4361ee&color=fff" 
+                                 alt="Mike Johnson" class="rounded-circle">
+                        </div>
+                        <h4>Mike Johnson</h4>
+                        <p class="text-primary mb-2">Technical Lead</p>
+                        <p class="text-muted">Smart contract developer</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h2 class="mb-4">Get in Touch</h2>
+                <p class="text-muted mb-5">Have questions about our platform? We\'re here to help!</p>
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope fa-2x text-primary mb-3"></i>
+                            <h5>Email</h5>
+                            <p class="text-muted mb-0">support@givewell.com</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="contact-item">
+                            <i class="fas fa-phone fa-2x text-primary mb-3"></i>
+                            <h5>Phone</h5>
+                            <p class="text-muted mb-0">+1 (555) 123-4567</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt fa-2x text-primary mb-3"></i>
+                            <h5>Location</h5>
+                            <p class="text-muted mb-0">San Francisco, CA</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 ';
 ?>

@@ -1,11 +1,11 @@
 <?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['campaign'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['campaign_id'])) {
     if (!isset($_SESSION['user'])) {
         echo '<div class="alert alert-danger">Please <a href="?page=login">login</a> to post a message.</div>';
         exit;
     }
 
-    $cid = intval($_POST['campaign']);
+    $cid = intval($_POST['campaign_id']);
     $msg = sanitize($_POST['message']);
     $userID = $_SESSION['user']['UserID'];
 
