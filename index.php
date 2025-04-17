@@ -496,7 +496,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'home';
       include 'login_process.php';
       break;
     case 'admin_panel':
-      include 'admin_panel_fixed.php';
+      include 'admin_panel.php';
       break;
     case 'approve_campaign':
       include 'approve_campaign.php';

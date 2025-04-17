@@ -232,10 +232,30 @@ $messages = $stmt->get_result();
                         </div>
 
                         <?php if (!$isEnded): ?>
-                            <button type="button" class="btn btn-primary btn-lg btn-block mb-3"
-                                    data-toggle="modal" data-target="#donateModal">
-                                <i class="fas fa-heart mr-2"></i>Donate Now
-                            </button>
+                            <?php if (isset($_SESSION['user'])): ?>
+                                <?php if ($_SESSION['user']['Role'] === 'Donor'): ?>
+                                    <!-- User is logged in as Donor, show donate modal button -->
+                                    <button type="button" class="btn btn-primary btn-lg btn-block mb-3"
+                                            data-toggle="modal" data-target="#donateModal">
+                                        <i class="fas fa-heart mr-2"></i>Donate Now
+                                    </button>
+                                <?php else: ?>
+                                    <!-- User is logged in but not as Donor (Admin or Campaigner) -->
+                                    <div class="alert alert-warning mb-3">
+                                        <i class="fas fa-exclamation-triangle mr-2"></i>
+                                        Only users with the Donor role can make donations. Your current role is <strong><?php echo $_SESSION['user']['Role']; ?></strong>.
+                                    </div>
+                                <?php endif; ?>
+                            <?php else: ?>
+                                <!-- User is not logged in, show login redirect button -->
+                                <a href="?page=login" class="btn btn-primary btn-lg btn-block mb-3">
+                                    <i class="fas fa-sign-in-alt mr-2"></i>Login to Donate
+                                </a>
+                                <div class="alert alert-info mb-3">
+                                    <i class="fas fa-info-circle mr-2"></i>
+                                    You need to be logged in as a Donor to make a donation.
+                                </div>
+                            <?php endif; ?>
                             <button type="button" class="btn btn-outline-primary btn-block">
                                 <i class="fas fa-share mr-2"></i>Share Campaign
                             </button>
@@ -328,6 +348,7 @@ $messages = $stmt->get_result();
 </div>
 
 <!-- Donate Modal -->
+<?php if (isset($_SESSION['user']) && $_SESSION['user']['Role'] === 'Donor'): ?>
 <div class="modal fade" id="donateModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -374,6 +395,7 @@ $messages = $stmt->get_result();
         </div>
     </div>
 </div>
+<?php endif; ?>
 
 <style>
 .campaign-header {

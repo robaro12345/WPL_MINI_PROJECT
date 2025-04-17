@@ -1,8 +1,0 @@
-[16-Apr-2025 15:55:00 UTC] PHP Fatal error:  Uncaught Error: Class "mysqli" not found in C:\xampp\htdocs\Text\migrate_images.php:21
-Stack trace:
-#0 {main}
-  thrown in C:\xampp\htdocs\Text\migrate_images.php on line 21
-[16-Apr-2025 15:57:35 UTC] PHP Fatal error:  Uncaught Error: Class "mysqli" not found in C:\xampp\htdocs\Text\migrate_images.php:21
-Stack trace:
-#0 {main}
-  thrown in C:\xampp\htdocs\Text\migrate_images.php on line 21
