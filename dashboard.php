@@ -24,11 +24,11 @@ $userID = $_SESSION['user']['UserID'];
 $isDonor = $_SESSION['user']['Role'] === 'Donor';
 
 // Common queries for all users
-$donationsQuery = "SELECT d.*, c.Name as CampaignName, c.Description as CampaignDesc, 
+$donationsQuery = "SELECT d.*, c.Name as CampaignName, c.Description as CampaignDesc,
                    c.Current_Amount, c.Goal, c.End_Date
-                   FROM DONATION d 
-                   JOIN CAMPAIGN c ON d.CampaignID = c.CID 
-                   WHERE d.UserID = ? 
+                   FROM DONATION d
+                   JOIN CAMPAIGN c ON d.CampaignID = c.CID
+                   WHERE d.UserID = ?
                    ORDER BY d.Timestamp DESC";
 
 $stmt = $conn->prepare($donationsQuery);
@@ -55,8 +55,8 @@ $donations->data_seek(0);
 // Donor-specific queries
 if ($isDonor) {
     // Get causes/categories user has donated to
-    $causeStatsQuery = "SELECT c.Category as CategoryName, 
-                            COUNT(d.DonationID) as DonationCount, 
+    $causeStatsQuery = "SELECT c.Category as CategoryName,
+                            COUNT(d.DonationID) as DonationCount,
                             SUM(d.Amount) as TotalAmount
                         FROM DONATION d
                         JOIN CAMPAIGN c ON d.CampaignID = c.CID
@@ -92,9 +92,9 @@ if ($isDonor) {
 
     // Get donation history by month for chart
     $sixMonthsAgo = date('Y-m-d', strtotime('-6 months'));
-    $monthlyDonationsQuery = "SELECT DATE_FORMAT(Timestamp, '%Y-%m') as Month, 
-                             SUM(Amount) as Total 
-                             FROM DONATION 
+    $monthlyDonationsQuery = "SELECT DATE_FORMAT(Timestamp, '%Y-%m') as Month,
+                             SUM(Amount) as Total
+                             FROM DONATION
                              WHERE UserID = ? AND Timestamp >= ?
                              GROUP BY DATE_FORMAT(Timestamp, '%Y-%m')
                              ORDER BY Month ASC";
@@ -126,12 +126,12 @@ if ($isDonor) {
 } else {
     // Campaign Creator queries
     $campaignsQuery = "SELECT * FROM CAMPAIGN WHERE CRID_USER = ? ORDER BY Creation_Date DESC";
-    
+
     $stmt = $conn->prepare($campaignsQuery);
     $stmt->bind_param("i", $userID);
     $stmt->execute();
     $campaigns = $stmt->get_result();
-    
+
     $campaignsCreated = $campaigns->num_rows;
 }
 ?>
@@ -149,8 +149,8 @@ if ($isDonor) {
                         <div>
                             <h2 class="mb-1">Welcome back, <?php echo htmlspecialchars($_SESSION['user']['Fname']); ?>!</h2>
                             <p class="mb-0">
-                                <?php echo $isDonor ? 
-                                    "Thank you for your generosity and support. Your donations are making a difference." : 
+                                <?php echo $isDonor ?
+                                    "Thank you for your generosity and support. Your donations are making a difference." :
                                     "Here's what's happening with your campaigns and donations."; ?>
                             </p>
                         </div>
@@ -229,9 +229,9 @@ if ($isDonor) {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php 
+                                        <?php
                                         $count = 0;
-                                        while ($donation = $donations->fetch_assoc()): 
+                                        while ($donation = $donations->fetch_assoc()):
                                             if ($count >= 5) break; // Show only 5 recent donations
                                             $count++;
                                             $progress = ($donation['Current_Amount'] / $donation['Goal']) * 100;
@@ -324,8 +324,8 @@ if ($isDonor) {
                         <?php if ($recommendedCampaigns && $recommendedCampaigns->num_rows > 0): ?>
                             <div class="recommended-campaigns">
                                 <?php while ($campaign = $recommendedCampaigns->fetch_assoc()): ?>
-                                    <?php 
-                                    $progress = ($campaign['Current_Amount'] / $campaign['Goal']) * 100; 
+                                    <?php
+                                    $progress = ($campaign['Current_Amount'] / $campaign['Goal']) * 100;
                                     $daysLeft = ceil((strtotime($campaign['End_Date']) - time()) / (60 * 60 * 24));
                                     ?>
                                     <div class="recommended-item mb-4">
@@ -364,7 +364,7 @@ if ($isDonor) {
                 </div>
             </div>
         <?php else: ?>
-            <!-- CAMPAIGN CREATOR VIEW: Left Column (Your Campaigns) --> 
+            <!-- CAMPAIGN CREATOR VIEW: Left Column (Your Campaigns) -->
             <div class="col-lg-8">
                 <div class="card shadow-lg border-0 mb-4">
                     <div class="card-header bg-white">
@@ -618,5 +618,59 @@ document.addEventListener('DOMContentLoaded', function() {
 .donation-list::-webkit-scrollbar-thumb {
     background: #888;
     border-radius: 3px;
+}
+
+/* Dark Mode Styles */
+.dark-mode .card-header.bg-white {
+    background-color: #1e1e1e !important;
+    color: #e0e0e0;
+}
+
+.dark-mode .bg-light {
+    background-color: #2d2d2d !important;
+}
+
+.dark-mode .text-muted {
+    color: #aaa !important;
+}
+
+.dark-mode .cause-item,
+.dark-mode .recommended-item,
+.dark-mode .donation-item {
+    background-color: #2d2d2d;
+}
+
+.dark-mode .cause-item:hover,
+.dark-mode .recommended-item:hover {
+    background-color: #333;
+}
+
+.dark-mode .campaign-thumbnail-placeholder {
+    background-color: #333 !important;
+}
+
+.dark-mode .campaign-thumbnail-placeholder i {
+    color: #555;
+}
+
+.dark-mode .table thead.bg-light {
+    background-color: #2d2d2d !important;
+}
+
+.dark-mode .table thead th {
+    color: #aaa;
+}
+
+.dark-mode .donation-list::-webkit-scrollbar-track {
+    background: #2d2d2d;
+}
+
+.dark-mode .donation-list::-webkit-scrollbar-thumb {
+    background: #555;
+}
+
+/* Chart.js dark mode adjustments */
+.dark-mode .chart-container canvas {
+    filter: invert(0.8) hue-rotate(180deg);
 }
 </style>

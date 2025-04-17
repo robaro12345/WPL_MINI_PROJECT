@@ -2,7 +2,7 @@
 // Get recent campaigns
 $recentCampaigns = $conn->query("SELECT * FROM CAMPAIGN WHERE Approval_Status = 1 ORDER BY Creation_Date DESC LIMIT 3");
 
-// Hero Section 
+// Hero Section
 ?>
 
 <div class="hero-section text-white position-relative overflow-hidden">
@@ -14,7 +14,7 @@ $recentCampaigns = $conn->query("SELECT * FROM CAMPAIGN WHERE Approval_Status = 
                     Make a Difference with Your Community
                 </h1>
                 <p class="lead mb-4" style="color: #7ed7ff;">
-                    Join our platform to support meaningful causes and create positive change. 
+                    Join our platform to support meaningful causes and create positive change.
                     Start a campaign or contribute to existing ones today.
                 </p>
                 <div class="d-flex flex-wrap">
@@ -29,7 +29,7 @@ $recentCampaigns = $conn->query("SELECT * FROM CAMPAIGN WHERE Approval_Status = 
                 </div>
             </div>
             <div class="col-lg-6 d-none d-lg-block">
-                <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
                      class="img-fluid rounded-lg shadow-lg" alt="Community Support">
             </div>
         </div>
@@ -126,7 +126,7 @@ $recentCampaigns = $conn->query("SELECT * FROM CAMPAIGN WHERE Approval_Status = 
         </div>
         <div class="row">
             <?php if ($recentCampaigns && $recentCampaigns->num_rows > 0): ?>
-                <?php while ($campaign = $recentCampaigns->fetch_assoc()): 
+                <?php while ($campaign = $recentCampaigns->fetch_assoc()):
                     $progress = ($campaign['Current_Amount'] / $campaign['Goal']) * 100;
                     ?>
                     <div class="col-md-4 mb-4">
@@ -139,7 +139,7 @@ $recentCampaigns = $conn->query("SELECT * FROM CAMPAIGN WHERE Approval_Status = 
                                     <?php echo substr(htmlspecialchars($campaign['Description']), 0, 100) . '...'; ?>
                                 </p>
                                 <div class="progress mb-3" style="height: 10px;">
-                                    <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" 
+                                    <div class="progress-bar bg-success progress-bar-striped progress-bar-animated"
                                          role="progressbar" style="width: <?php echo $progress; ?>%">
                                     </div>
                                 </div>
@@ -151,7 +151,7 @@ $recentCampaigns = $conn->query("SELECT * FROM CAMPAIGN WHERE Approval_Status = 
                                         <i class="fas fa-dollar-sign mr-1"></i><?php echo number_format($campaign['Current_Amount'], 2); ?> raised
                                     </span>
                                 </div>
-                                <a href="?page=campaign_detail&cid=<?php echo $campaign['CID']; ?>" 
+                                <a href="?page=campaign_detail&cid=<?php echo $campaign['CID']; ?>"
                                    class="btn btn-outline-primary btn-block">
                                     Learn More
                                 </a>
@@ -271,4 +271,48 @@ p { color: #555; }
 /* How It Works */
 .how-it-works { padding: 60px 0; text-align: center; }
 .how-it-works i { font-size: 50px; color: #007bff; margin-bottom: 15px; }
+
+/* Dark Mode Styles */
+.dark-mode p { color: #e0e0e0; }
+
+.dark-mode .bg-light {
+    background-color: #1e1e1e !important;
+}
+
+.dark-mode .testimonials {
+    background-color: #1e1e1e;
+}
+
+.dark-mode .testimonial {
+    background-color: #2d2d2d;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .testimonial p {
+    color: #e0e0e0;
+}
+
+.dark-mode .testimonial h5 {
+    color: #e0e0e0;
+}
+
+.dark-mode .card-title.text-primary {
+    color: #6d8eff !important;
+}
+
+.dark-mode .stat-item:not(:last-child)::after {
+    background: rgba(255,255,255,0.1);
+}
+
+.dark-mode .feature-icon.bg-primary {
+    background-color: #3046eb !important;
+}
+
+.dark-mode .feature-icon.bg-success {
+    background-color: #28a745 !important;
+}
+
+.dark-mode .feature-icon.bg-info {
+    background-color: #17a2b8 !important;
+}
 </style>

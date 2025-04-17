@@ -5,15 +5,15 @@ if (!isset($_GET['cid'])) {
 }
 
 $cid = $_GET['cid'];
-$query = "SELECT c.*, 
+$query = "SELECT c.*,
                  COALESCE(u.Fname, o.NAME) as Creator_Name,
                  COALESCE(e.Email, o.Wallet_ID) as Creator_Email,
                  COUNT(DISTINCT d.DonationID) as Donor_Count,
                  SUM(d.Amount) as Total_Raised,
                  (SELECT COUNT(*) FROM MESSAGE WHERE Campaign_ID = c.CID) as Message_Count,
                  (SELECT URL FROM RESOURCES WHERE CampID = c.CID AND TYPE = 'image' LIMIT 1) as Image_URL
-          FROM CAMPAIGN c 
-          LEFT JOIN USERS u ON c.CRID_USER = u.UserID 
+          FROM CAMPAIGN c
+          LEFT JOIN USERS u ON c.CRID_USER = u.UserID
           LEFT JOIN EMAIL e ON u.UserID = e.UserID AND e.Primary_Email = TRUE
           LEFT JOIN ORGANISATION o ON c.CRID_ORG = o.OrgID
           LEFT JOIN DONATION d ON c.CID = d.CampaignID
@@ -44,7 +44,7 @@ $daysLeft = ceil((strtotime($campaign['End_Date']) - time()) / (60 * 60 * 24));
 $isEnded = $daysLeft <= 0;
 
 // Fetch recent donors
-$donorsQuery = "SELECT d.*, 
+$donorsQuery = "SELECT d.*,
                        COALESCE(u.Fname, 'Anonymous') as Donor_Name,
                        COALESCE(r.URL, 'default-avatar.png') as Donor_Image
                 FROM DONATION d
@@ -59,7 +59,7 @@ $stmt->execute();
 $donors = $stmt->get_result();
 
 // Fetch recent messages
-$messagesQuery = "SELECT m.*, 
+$messagesQuery = "SELECT m.*,
                          COALESCE(u.Fname, 'Anonymous') as Sender_Name,
                          COALESCE(r.URL, 'default-avatar.png') as Sender_Image
                   FROM MESSAGE m
@@ -85,7 +85,7 @@ $messages = $stmt->get_result();
                             <a href="?page=explore" class="text-white">Explore</a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="?page=explore&category=<?php echo urlencode($campaign['Category']); ?>" 
+                            <a href="?page=explore&category=<?php echo urlencode($campaign['Category']); ?>"
                                class="text-white">
                                 <?php echo htmlspecialchars($campaign['Category']); ?>
                             </a>
@@ -93,17 +93,17 @@ $messages = $stmt->get_result();
                         <li class="breadcrumb-item active text-white" aria-current="page">Campaign</li>
                     </ol>
                 </nav>
-                
+
                 <span class="badge badge-primary px-3 py-2 mb-3">
                     <?php echo htmlspecialchars($campaign['Category']); ?>
                 </span>
-                
+
                 <h1 class="display-4 text-white font-weight-bold mb-4">
                     <?php echo htmlspecialchars($campaign['Name']); ?>
                 </h1>
-                
+
                 <div class="d-flex align-items-center text-white mb-4">
-                    <img src="uploads/<?php echo htmlspecialchars($campaign['Image_URL']); ?>" 
+                    <img src="uploads/<?php echo htmlspecialchars($campaign['Image_URL']); ?>"
                          alt="Creator" class="rounded-circle mr-3" style="width: 40px; height: 40px; object-fit: cover;">
                     <div>
                         <p class="mb-0">Created by <strong><?php echo htmlspecialchars($campaign['Creator_Name']); ?></strong></p>
@@ -131,7 +131,7 @@ $messages = $stmt->get_result();
                             <?php echo nl2br(htmlspecialchars($campaign['Description'])); ?>
                         </div>
                     </div>
-                    
+
                     <!-- Updates Section -->
                     <div class="campaign-updates mb-5">
                         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -140,14 +140,14 @@ $messages = $stmt->get_result();
                                 <?php echo $campaign['Message_Count']; ?> updates
                             </span>
                         </div>
-                        
+
                         <?php if ($messages->num_rows > 0): ?>
                             <div class="timeline">
                                 <?php while ($message = $messages->fetch_assoc()): ?>
                                     <div class="timeline-item">
                                         <div class="timeline-content">
                                             <div class="d-flex align-items-center mb-2">
-                                                <img src="uploads/<?php echo htmlspecialchars($message['Sender_Image']); ?>" 
+                                                <img src="uploads/<?php echo htmlspecialchars($message['Sender_Image']); ?>"
                                                      alt="<?php echo htmlspecialchars($message['Sender_Name']); ?>"
                                                      class="rounded-circle mr-3"
                                                      style="width: 32px; height: 32px; object-fit: cover;">
@@ -173,12 +173,12 @@ $messages = $stmt->get_result();
                                 <p class="text-muted">No updates yet</p>
                             </div>
                         <?php endif; ?>
-                        
+
                         <?php if (isset($_SESSION['user'])): ?>
                             <form action="?page=post_message" method="POST" class="mt-4">
                                 <input type="hidden" name="campaign_id" value="<?php echo $campaign['CID']; ?>">
                                 <div class="form-group">
-                                    <textarea name="message" class="form-control" rows="3" 
+                                    <textarea name="message" class="form-control" rows="3"
                                               placeholder="Leave a message of support..." required></textarea>
                                 </div>
                                 <button type="submit" class="btn btn-primary">
@@ -190,7 +190,7 @@ $messages = $stmt->get_result();
                 </div>
             </div>
         </div>
-        
+
         <!-- Sidebar -->
         <div class="col-lg-4">
             <div class="campaign-sidebar">
@@ -205,13 +205,13 @@ $messages = $stmt->get_result();
                                 raised of $<?php echo number_format($campaign['Goal'], 2); ?>
                             </span>
                         </div>
-                        
+
                         <div class="progress mb-3" style="height: 10px;">
-                            <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" 
+                            <div class="progress-bar bg-success progress-bar-striped progress-bar-animated"
                                  role="progressbar" style="width: <?php echo $progress; ?>%">
                             </div>
                         </div>
-                        
+
                         <div class="campaign-stats d-flex justify-content-between text-center mb-4">
                             <div>
                                 <h5 class="mb-0"><?php echo $campaign['Donor_Count']; ?></h5>
@@ -230,9 +230,9 @@ $messages = $stmt->get_result();
                                 </small>
                             </div>
                         </div>
-                        
+
                         <?php if (!$isEnded): ?>
-                            <button type="button" class="btn btn-primary btn-lg btn-block mb-3" 
+                            <button type="button" class="btn btn-primary btn-lg btn-block mb-3"
                                     data-toggle="modal" data-target="#donateModal">
                                 <i class="fas fa-heart mr-2"></i>Donate Now
                             </button>
@@ -247,17 +247,17 @@ $messages = $stmt->get_result();
                         <?php endif; ?>
                     </div>
                 </div>
-                
+
                 <!-- Recent Donors Card -->
                 <div class="card border-0 shadow-lg mb-4">
                     <div class="card-body p-4">
                         <h5 class="card-title mb-4">Recent Donors</h5>
-                        
+
                         <?php if ($donors->num_rows > 0): ?>
                             <div class="donors-list">
                                 <?php while ($donor = $donors->fetch_assoc()): ?>
                                     <div class="donor-item d-flex align-items-center mb-3">
-                                        <img src="uploads/<?php echo htmlspecialchars($donor['Donor_Image']); ?>" 
+                                        <img src="uploads/<?php echo htmlspecialchars($donor['Donor_Image']); ?>"
                                              alt="<?php echo htmlspecialchars($donor['Donor_Name']); ?>"
                                              class="rounded-circle mr-3"
                                              style="width: 40px; height: 40px; object-fit: cover;">
@@ -266,7 +266,7 @@ $messages = $stmt->get_result();
                                                 <?php echo htmlspecialchars($donor['Donor_Name']); ?>
                                             </h6>
                                             <small class="text-muted">
-                                                $<?php echo number_format($donor['Amount'], 2); ?> • 
+                                                $<?php echo number_format($donor['Amount'], 2); ?> •
                                                 <?php echo date('M j, Y', strtotime($donor['Timestamp'])); ?>
                                             </small>
                                         </div>
@@ -281,12 +281,12 @@ $messages = $stmt->get_result();
                         <?php endif; ?>
                     </div>
                 </div>
-                
+
                 <!-- Campaign Info Card -->
                 <div class="card border-0 shadow-lg">
                     <div class="card-body p-4">
                         <h5 class="card-title mb-4">Campaign Details</h5>
-                        
+
                         <div class="campaign-info">
                             <div class="d-flex align-items-center mb-3">
                                 <i class="fas fa-calendar-alt fa-fw text-primary mr-3"></i>
@@ -295,7 +295,7 @@ $messages = $stmt->get_result();
                                     <?php echo date('F j, Y', strtotime($campaign['Creation_Date'])); ?>
                                 </div>
                             </div>
-                            
+
                             <div class="d-flex align-items-center mb-3">
                                 <i class="fas fa-clock fa-fw text-primary mr-3"></i>
                                 <div>
@@ -303,7 +303,7 @@ $messages = $stmt->get_result();
                                     <?php echo date('F j, Y', strtotime($campaign['End_Date'])); ?>
                                 </div>
                             </div>
-                            
+
                             <div class="d-flex align-items-center mb-3">
                                 <i class="fas fa-user fa-fw text-primary mr-3"></i>
                                 <div>
@@ -311,7 +311,7 @@ $messages = $stmt->get_result();
                                     <?php echo htmlspecialchars($campaign['Creator_Name']); ?>
                                 </div>
                             </div>
-                            
+
                             <div class="d-flex align-items-center">
                                 <i class="fas fa-tag fa-fw text-primary mr-3"></i>
                                 <div>
@@ -337,11 +337,11 @@ $messages = $stmt->get_result();
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            
+
             <div class="modal-body">
                 <form action="?page=process_donation" method="POST" id="donationForm">
                     <input type="hidden" name="campaign_id" value="<?php echo $campaign['CID']; ?>">
-                    
+
                     <div class="form-group">
                         <label>Amount (USD)</label>
                         <div class="input-group">
@@ -352,20 +352,20 @@ $messages = $stmt->get_result();
                                    min="1" step="0.01" placeholder="Enter amount">
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label>Message (Optional)</label>
-                        <textarea name="message" class="form-control" rows="3" 
+                        <textarea name="message" class="form-control" rows="3"
                                   placeholder="Leave a message of support..."></textarea>
                     </div>
-                    
+
                     <div class="custom-control custom-checkbox mb-3">
                         <input type="checkbox" class="custom-control-input" id="anonymous" name="anonymous">
                         <label class="custom-control-label" for="anonymous">
                             Make this donation anonymous
                         </label>
                     </div>
-                    
+
                     <button type="submit" class="btn btn-primary btn-block">
                         <i class="fas fa-heart mr-2"></i>Complete Donation
                     </button>
@@ -441,6 +441,59 @@ $messages = $stmt->get_result();
 .donor-item:last-child {
     margin-bottom: 0 !important;
 }
+
+/* Dark Mode Styles */
+.dark-mode .timeline::before {
+    background: #333;
+}
+
+.dark-mode .timeline-item::before {
+    background: #4361ee;
+    border: 2px solid #1e1e1e;
+}
+
+.dark-mode .badge-light {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+}
+
+.dark-mode .text-primary {
+    color: #6d8eff !important;
+}
+
+.dark-mode .text-muted {
+    color: #aaa !important;
+}
+
+.dark-mode .formatted-description {
+    color: #e0e0e0;
+}
+
+.dark-mode .campaign-info i.text-primary {
+    color: #6d8eff !important;
+}
+
+.dark-mode .modal-content {
+    background-color: #1e1e1e;
+}
+
+.dark-mode .modal-header {
+    border-color: #333;
+}
+
+.dark-mode .close {
+    color: #e0e0e0;
+}
+
+.dark-mode .custom-control-label {
+    color: #e0e0e0;
+}
+
+.dark-mode .input-group-text {
+    background-color: #2d2d2d;
+    border-color: #404040;
+    color: #e0e0e0;
+}
 </style>
 
 <script>
@@ -467,7 +520,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-    
+
     // Donation form validation
     const donationForm = document.getElementById('donationForm');
     if (donationForm) {

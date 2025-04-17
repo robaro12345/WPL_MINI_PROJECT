@@ -1,4 +1,6 @@
 <?php
+// Start output buffering to allow header redirects
+ob_start();
 session_start();
 
 // Handle logout before any output
@@ -43,42 +45,50 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'home';
   <!-- Include web3.js from CDN -->
   <script src="https://cdn.jsdelivr.net/npm/web3/dist/web3.min.js"></script>
   <style>
-    body { 
+    body {
       font-family: 'Poppins', sans-serif;
       transition: all 0.3s ease;
       background-color: #f8f9fa;
     }
-    .dark-mode { 
-      background-color: #121212; 
-      color: #e0e0e0; 
+    /* Dark Mode Styling - Enhanced */
+    .dark-mode {
+      background-color: #121212;
+      color: #e0e0e0;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
     .dark-mode .card {
       background-color: #1e1e1e;
       border-color: #333;
+      box-shadow: 0 4px 6px rgba(0,0,0,.3);
     }
     .dark-mode .navbar {
       background-color: #1e1e1e !important;
       border-color: #333;
+      box-shadow: 0 2px 4px rgba(0,0,0,.3);
     }
     .dark-mode .navbar-light .navbar-brand,
     .dark-mode .navbar-light .navbar-nav .nav-link {
       color: #fff;
     }
-    .dark-mode .nav-link:hover, 
+    .dark-mode .nav-link:hover,
     .dark-mode .nav-link.active {
-      background-color: rgba(255,255,255,.1);
-      color: #fff !important;
+      background-color: rgba(67,97,238,.2);
+      color: #4361ee !important;
     }
     .dark-mode .dropdown-menu {
       background-color: #1e1e1e;
       border-color: #333;
+      box-shadow: 0 0 20px rgba(0,0,0,.3);
     }
     .dark-mode .dropdown-item {
       color: #e0e0e0;
     }
     .dark-mode .dropdown-item:hover {
-      background-color: rgba(255,255,255,.1);
-      color: #fff;
+      background-color: rgba(67,97,238,.2);
+      color: #4361ee;
+    }
+    .dark-mode .dropdown-divider {
+      border-color: #333;
     }
     .dark-mode .form-control {
       background-color: #2d2d2d;
@@ -89,6 +99,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'home';
       background-color: #333;
       border-color: #4361ee;
       color: #fff;
+      box-shadow: 0 0 0 0.2rem rgba(67,97,238,.25);
     }
     .dark-mode .table {
       color: #e0e0e0;
@@ -98,11 +109,12 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'home';
       border-color: #333;
     }
     .dark-mode .table-hover tbody tr:hover {
-      background-color: rgba(255,255,255,.05);
+      background-color: rgba(67,97,238,.1);
     }
     .dark-mode .modal-content {
       background-color: #1e1e1e;
       border-color: #333;
+      box-shadow: 0 0 30px rgba(0,0,0,.5);
     }
     .dark-mode .modal-header {
       border-color: #333;
@@ -111,12 +123,56 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'home';
       border-color: #333;
     }
     .dark-mode .text-muted {
-      color: #888 !important;
+      color: #aaa !important;
     }
     .dark-mode .progress {
       background-color: #2d2d2d;
     }
-    .navbar { 
+    .dark-mode .btn-outline-secondary {
+      color: #aaa;
+      border-color: #555;
+    }
+    .dark-mode .btn-outline-secondary:hover {
+      background-color: #333;
+      color: #fff;
+    }
+    .dark-mode .alert-info {
+      background-color: #1e2a38;
+      color: #9fcdff;
+      border-color: #0d2a45;
+    }
+    .dark-mode .alert-success {
+      background-color: #1e3a2d;
+      color: #a3cfbb;
+      border-color: #0d3321;
+    }
+    .dark-mode .alert-danger {
+      background-color: #3a1e1e;
+      color: #cfb3b3;
+      border-color: #330d0d;
+    }
+    .dark-mode .alert-warning {
+      background-color: #3a331e;
+      color: #ffe69c;
+      border-color: #332b0d;
+    }
+    .dark-mode .badge-primary {
+      background-color: #3046eb;
+    }
+    .dark-mode .badge-success {
+      background-color: #28a745;
+    }
+    .dark-mode .badge-danger {
+      background-color: #dc3545;
+    }
+    .dark-mode .badge-warning {
+      background-color: #ffc107;
+      color: #212529;
+    }
+    .dark-mode .badge-info {
+      background-color: #17a2b8;
+    }
+    .navbar {
       box-shadow: 0 2px 4px rgba(0,0,0,.1);
       padding: 0.5rem 1rem;
     }
@@ -124,8 +180,8 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'home';
       font-weight: 700;
       font-size: 1.5rem;
     }
-    .container { 
-      padding-bottom: 50px; 
+    .container {
+      padding-bottom: 50px;
     }
     .card {
       border: none;
@@ -163,8 +219,8 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'home';
       border-radius: 10px;
       border: none;
     }
-    .tab { 
-      cursor: pointer; 
+    .tab {
+      cursor: pointer;
       padding: 12px 24px;
       border-radius: 8px;
       border: 1px solid #dee2e6;
@@ -172,7 +228,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'home';
       margin: 0 5px;
       transition: all 0.3s ease;
     }
-    .tab.active { 
+    .tab.active {
       background-color: #4361ee;
       color: white;
       border-color: #4361ee;
@@ -239,9 +295,27 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'home';
         align-items: center;
         justify-content: center;
         border-radius: 50%;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
 
-    .dark-mode .nav-link:hover, 
+    #mode-toggle:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+
+    .dark-mode #mode-toggle {
+        background-color: #4361ee;
+        border-color: #4361ee;
+        color: #fff;
+    }
+
+    .dark-mode #mode-toggle:hover {
+        background-color: #3046eb;
+        border-color: #3046eb;
+    }
+
+    .dark-mode .nav-link:hover,
     .dark-mode .nav-link.active {
         background-color: rgba(255,255,255,.1);
         color: #fff !important;
@@ -312,7 +386,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'home';
                 <?php if (isset($_SESSION['user'])): ?>
                     <?php if ($_SESSION['user']['Role'] === 'Campaigner'): ?>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="campaignDropdown" role="button" 
+                            <a class="nav-link dropdown-toggle" href="#" id="campaignDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-bullhorn mr-1"></i>Campaigns
                             </a>
@@ -345,7 +419,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'home';
                         </li>
                     <?php endif; ?>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" 
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#"
                            id="userDropdown" role="button" data-toggle="dropdown">
                             <div class="avatar-circle mr-2">
                                 <?php echo substr($_SESSION['user']['Fname'], 0, 1); ?>
@@ -370,7 +444,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'home';
                     </li>
                 <?php endif; ?>
                 <li class="nav-item ml-2">
-                    <button id="mode-toggle" class="btn btn-outline-secondary btn-sm">
+                    <button id="mode-toggle" class="btn btn-outline-primary btn-sm rounded-circle" title="Toggle Dark/Light Mode">
                         <i class="fas fa-moon"></i>
                     </button>
                 </li>
@@ -422,7 +496,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'home';
       include 'login_process.php';
       break;
     case 'admin_panel':
-      include 'admin_panel.php';
+      include 'admin_panel_fixed.php';
       break;
     case 'approve_campaign':
       include 'approve_campaign.php';
@@ -437,14 +511,31 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'home';
   </div>
 
   <script>
-    document.getElementById("mode-toggle").addEventListener("click", function(){
-      document.body.classList.toggle("dark-mode");
-      const icon = this.querySelector('i');
-      if (document.body.classList.contains("dark-mode")) {
-          icon.className = "fas fa-sun";
+    // Function to set dark mode
+    function setDarkMode(isDark) {
+      if (isDark) {
+        document.body.classList.add("dark-mode");
+        document.getElementById("mode-toggle").querySelector('i').className = "fas fa-sun";
       } else {
-          icon.className = "fas fa-moon";
+        document.body.classList.remove("dark-mode");
+        document.getElementById("mode-toggle").querySelector('i').className = "fas fa-moon";
       }
+      // Save preference to localStorage
+      localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
+    }
+
+    // Check for saved dark mode preference on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      const darkModeSaved = localStorage.getItem('darkMode');
+      if (darkModeSaved === 'enabled') {
+        setDarkMode(true);
+      }
+    });
+
+    // Toggle dark mode when button is clicked
+    document.getElementById("mode-toggle").addEventListener("click", function(){
+      const isDarkMode = document.body.classList.contains("dark-mode");
+      setDarkMode(!isDarkMode);
     });
   </script>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -452,3 +543,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'home';
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+<?php
+// Flush the output buffer
+ob_end_flush();
+?>

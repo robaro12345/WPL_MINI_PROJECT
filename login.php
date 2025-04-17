@@ -11,7 +11,7 @@ if (isset($_SESSION['user'])) {
             <div class="card shadow-lg border-0">
                 <div class="card-body p-5">
                     <h2 class="text-center mb-4">Welcome to Give Well</h2>
-                    
+
                     <div class="d-flex justify-content-center mb-4">
                         <div class="tab-container">
                             <span class="tab active" id="tab-login" onclick="showTab('login')">
@@ -108,6 +108,52 @@ select.form-control {
 }
 .col-md-3 {
     min-width: 200px;
+}
+
+/* Tab styling */
+.tab-container {
+    display: flex;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #dee2e6;
+}
+
+.tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: #f8f9fa;
+    transition: all 0.3s ease;
+}
+
+.tab.active {
+    background-color: #4361ee;
+    color: white;
+}
+
+/* Dark Mode Styles */
+.dark-mode .tab-container {
+    border-color: #404040;
+}
+
+.dark-mode .tab {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+}
+
+.dark-mode .tab.active {
+    background-color: #3046eb;
+    color: white;
+}
+
+.dark-mode .input-group-append .btn-secondary {
+    background-color: #2d2d2d;
+    border-color: #404040;
+    color: #e0e0e0;
+}
+
+.dark-mode .input-group-append .btn-secondary:hover {
+    background-color: #333;
+    border-color: #4361ee;
 }
 </style>
 <script>

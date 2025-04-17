@@ -3,7 +3,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_SESSION['user'])) {
     $name = sanitize($_POST['name']);
     $desc = sanitize($_POST['description']);
     $goal = floatval($_POST['goal']);
-    $start = sanitize($_POST['start_date']);
+    $start = date('Y-m-d');
     $end = sanitize($_POST['end_date']);
     $category = sanitize($_POST['category']);
     $wallet = sanitize($_POST['wallet_address']);
@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_SESSION['user'])) {
                 }
                 
                 $conn->commit();
-                echo '<div class="alert alert-success text-center">🎉 Campaign created successfully! <a href="?page=my_campaigns" class="alert-link">View Campaigns</a></div>';
+                echo '<div class="alert alert-success text-center">🎉 Campaign created successfully! <a href="?page=dashboard" class="alert-link">View Campaigns</a></div>';
             } else {
                 throw new Exception($stmt->error);
             }

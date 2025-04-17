@@ -167,7 +167,7 @@ echo '<div class="container-fluid mt-5">
                     <span>&times;</span>
                 </button>
             </div>
-            <form id="reviewForm" method="POST">
+            <form id="reviewForm" method="POST" action="?page=approve_campaign">
                 <div class="modal-body">
                     <input type="hidden" name="campaign_id" id="modalCampaignId">
                     <div class="form-group">
@@ -216,58 +216,125 @@ echo '<div class="container-fluid mt-5">
 .modal-header {
     border-radius: 15px 15px 0 0;
 }
-</style>
 
-<?php
-echo '<script>
-function openReviewModal(campaignId) {
-    document.getElementById("modalCampaignId").value = campaignId;
-    // Use vanilla JavaScript to show the modal
-    var modal = document.getElementById("reviewModal");
-    if (modal) {
-        modal.classList.add("show");
-        modal.style.display = "block";
-        document.body.classList.add("modal-open");
-
-        // Add backdrop
-        var backdrop = document.createElement("div");
-        backdrop.className = "modal-backdrop fade show";
-        document.body.appendChild(backdrop);
-    }
+/* Dark mode specific styles for admin panel */
+.dark-mode .counter {
+    color: #6d8eff;
 }
+.dark-mode .card-header.bg-primary {
+    background-color: #3046eb !important;
+}
+.dark-mode .card-header.bg-white {
+    background-color: #1e1e1e !important;
+    color: #e0e0e0;
+}
+.dark-mode .table-hover tbody tr:hover {
+    background-color: rgba(67,97,238,.1);
+}
+.dark-mode .bg-light {
+    background-color: #2d2d2d !important;
+}
+.dark-mode .table thead th {
+    color: #aaa;
+}
+</style>';
+?>
 
-// Close modal function
-function closeModal() {
-    var modal = document.getElementById("reviewModal");
-    if (modal) {
-        modal.classList.remove("show");
-        modal.style.display = "none";
-        document.body.classList.remove("modal-open");
+<script>
+// Modal implementation with fallback to jQuery if available
+function openReviewModal(campaignId) {
+    // Set the campaign ID in the hidden input
+    document.getElementById("modalCampaignId").value = campaignId;
 
-        // Remove backdrop
-        var backdrop = document.querySelector(".modal-backdrop");
-        if (backdrop) {
-            document.body.removeChild(backdrop);
+    // Try to use jQuery if it's available
+    if (typeof jQuery !== 'undefined' && typeof jQuery.fn.modal !== 'undefined') {
+        try {
+            jQuery("#reviewModal").modal("show");
+            return; // Exit if jQuery works
+        } catch (e) {
+            console.log("jQuery modal failed, falling back to vanilla JS");
         }
     }
+
+    // Fallback to vanilla JavaScript
+    var modal = document.getElementById("reviewModal");
+    modal.classList.add("show");
+    modal.style.display = "block";
+    modal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("modal-open");
+
+    // Add backdrop
+    var backdrop = document.createElement("div");
+    backdrop.className = "modal-backdrop fade show";
+    document.body.appendChild(backdrop);
 }
 
-// Add event listeners when the DOM is loaded
-document.addEventListener("DOMContentLoaded", function() {
-    // Add close button event listeners
-    var closeButtons = document.querySelectorAll("[data-dismiss=\'modal\']");
-    closeButtons.forEach(function(button) {
-        button.addEventListener("click", closeModal);
-    });
+// Function to close the modal with jQuery fallback
+function closeModal() {
+    // Try to use jQuery if it's available
+    if (typeof jQuery !== 'undefined' && typeof jQuery.fn.modal !== 'undefined') {
+        try {
+            jQuery("#reviewModal").modal("hide");
+            return; // Exit if jQuery works
+        } catch (e) {
+            console.log("jQuery modal hide failed, falling back to vanilla JS");
+        }
+    }
+
+    // Fallback to vanilla JavaScript
+    var modal = document.getElementById("reviewModal");
+    modal.classList.remove("show");
+    modal.style.display = "none";
+    modal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("modal-open");
+
+    // Remove backdrop
+    var backdrop = document.querySelector(".modal-backdrop");
+    if (backdrop) {
+        document.body.removeChild(backdrop);
+    }
+}
+
+// Add event listeners when the window is fully loaded (after all scripts)
+window.addEventListener("load", function() {
+    // Try to use jQuery if it's available
+    if (typeof jQuery !== 'undefined') {
+        try {
+            // Add event listeners using jQuery
+            jQuery("[data-dismiss='modal']").on("click", closeModal);
+
+            // Handle form submission
+            jQuery("#reviewForm").on("submit", function() {
+                // Allow the form to submit normally
+                return true;
+            });
+
+            // Clear form when modal is closed
+            jQuery("#reviewModal").on("hidden.bs.modal", function() {
+                document.getElementById("reviewForm").reset();
+            });
+
+            console.log("jQuery event listeners attached");
+            return; // Exit if jQuery works
+        } catch (e) {
+            console.log("jQuery event binding failed, falling back to vanilla JS");
+        }
+    }
+
+    // Fallback to vanilla JavaScript
+    // Add event listeners to close buttons
+    var closeButtons = document.querySelectorAll("[data-dismiss='modal']");
+    for (var i = 0; i < closeButtons.length; i++) {
+        closeButtons[i].addEventListener("click", closeModal);
+    }
 
     // Handle form submission
-    var reviewForm = document.getElementById("reviewForm");
-    if (reviewForm) {
-        reviewForm.addEventListener("submit", function(e) {
-            closeModal();
+    var form = document.getElementById("reviewForm");
+    if (form) {
+        form.addEventListener("submit", function() {
+            // Allow the form to submit normally
+            return true;
         });
     }
 });
-</script>';
-?>
-?>
+</script>

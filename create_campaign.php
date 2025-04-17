@@ -40,7 +40,7 @@ if (!isset($_SESSION['user'])) {
                                 <i class="fas fa-info-circle text-primary mr-2"></i>
                                 Campaign Details
                             </h4>
-                            
+
                             <div class="form-group">
                                 <label>Campaign Name</label>
                                 <input type="text" name="name" class="form-control" required
@@ -50,7 +50,7 @@ if (!isset($_SESSION['user'])) {
                                     Choose a clear, attention-grabbing name for your campaign
                                 </small>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label>Category</label>
                                 <select name="category" class="form-control" required>
@@ -62,7 +62,7 @@ if (!isset($_SESSION['user'])) {
                                     <option value="Technology">Technology</option>
                                 </select>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label>Campaign Description</label>
                                 <textarea name="description" class="form-control" rows="6" required
@@ -76,14 +76,14 @@ if (!isset($_SESSION['user'])) {
                                 </div>
                             </div>
                         </div>
-                        
+
                         <!-- Funding Details Section -->
                         <div class="form-section mb-5">
                             <h4 class="mb-4">
                                 <i class="fas fa-dollar-sign text-primary mr-2"></i>
                                 Funding Details
                             </h4>
-                            
+
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -101,7 +101,7 @@ if (!isset($_SESSION['user'])) {
                                         </small>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>End Date</label>
@@ -116,40 +116,41 @@ if (!isset($_SESSION['user'])) {
                                 </div>
                             </div>
                         </div>
-                        
+
                         <!-- Wallet Details Section -->
                         <div class="form-section mb-5">
                             <h4 class="mb-4">
                                 <i class="fas fa-wallet text-primary mr-2"></i>
                                 Wallet Details
                             </h4>
-                            
+
                             <div class="form-group">
                                 <label>Ethereum Wallet Address</label>
                                 <input type="text" name="wallet_address" class="form-control" required
                                        pattern="^0x[a-fA-F0-9]{40}$"
+                                       title="Please enter a valid Ethereum wallet address starting with '0x' followed by 40 hexadecimal characters"
                                        data-validation="Please enter a valid Ethereum wallet address">
                                 <small class="form-text text-muted">
-                                    Enter your Ethereum wallet address to receive donations
+                                    Enter your Ethereum wallet address to receive donations (e.g., 0x742d35Cc6634C0532925a3b844Bc454e4438f44e)
                                 </small>
                             </div>
-                            
+
                             <div class="alert alert-info">
                                 <i class="fas fa-info-circle mr-2"></i>
                                 Make sure to enter the correct wallet address. This cannot be changed after campaign creation.
                             </div>
                         </div>
-                        
+
                         <!-- Campaign Image Section -->
                         <div class="form-section mb-5">
                             <h4 class="mb-4">
                                 <i class="fas fa-image text-primary mr-2"></i>
                                 Campaign Image
                             </h4>
-                            
+
                             <div class="form-group">
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="campaignImage" 
+                                    <input type="file" class="custom-file-input" id="campaignImage"
                                            name="image" accept="image/*"
                                            data-validation="Please upload a campaign image">
                                     <label class="custom-file-label" for="campaignImage">
@@ -160,12 +161,12 @@ if (!isset($_SESSION['user'])) {
                                     Upload a compelling image that represents your campaign (max 5MB)
                                 </small>
                             </div>
-                            
+
                             <div id="imagePreview" class="mt-3 d-none">
                                 <img src="" alt="Campaign Image Preview" class="img-fluid rounded">
                             </div>
                         </div>
-                        
+
                         <!-- Terms and Submission -->
                         <div class="form-section">
                             <div class="custom-control custom-checkbox mb-4">
@@ -174,7 +175,7 @@ if (!isset($_SESSION['user'])) {
                                     I agree to the terms and conditions and confirm that all information provided is accurate
                                 </label>
                             </div>
-                            
+
                             <button type="submit" class="btn btn-primary btn-lg btn-block">
                                 <i class="fas fa-paper-plane mr-2"></i>
                                 Create Campaign
@@ -216,6 +217,51 @@ if (!isset($_SESSION['user'])) {
     max-height: 300px;
     object-fit: cover;
 }
+
+/* Dark Mode Styles */
+.dark-mode .create-campaign-header {
+    background: linear-gradient(135deg, #3046eb 0%, #1e2a8f 100%);
+}
+
+.dark-mode .form-section::before {
+    background: #333;
+}
+
+.dark-mode .text-primary {
+    color: #6d8eff !important;
+}
+
+.dark-mode .custom-file-label {
+    background-color: #2d2d2d;
+    border-color: #404040;
+    color: #e0e0e0;
+}
+
+.dark-mode .custom-file-label::after {
+    background-color: #333;
+    border-color: #404040;
+    color: #e0e0e0;
+}
+
+.dark-mode .input-group-text {
+    background-color: #2d2d2d;
+    border-color: #404040;
+    color: #e0e0e0;
+}
+
+.dark-mode .alert-info {
+    background-color: #1e2a38;
+    color: #9fcdff;
+    border-color: #0d2a45;
+}
+
+.dark-mode .custom-control-label {
+    color: #e0e0e0;
+}
+
+.dark-mode .invalid-feedback {
+    color: #ff6b6b;
+}
 </style>
 
 <script>
@@ -225,14 +271,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const file = e.target.files[0];
         const preview = document.getElementById('imagePreview');
         const label = document.querySelector('.custom-file-label');
-        
+
         if (file) {
             if (file.size > 5 * 1024 * 1024) {
                 alert('File size must be less than 5MB');
                 this.value = '';
                 return;
             }
-            
+
             const reader = new FileReader();
             reader.onload = function(e) {
                 preview.classList.remove('d-none');
@@ -245,20 +291,20 @@ document.addEventListener('DOMContentLoaded', function() {
             label.textContent = 'Choose image...';
         }
     });
-    
+
     // Character counter
     const descriptionField = document.querySelector('textarea[name="description"]');
     const charCounter = document.getElementById('charCount');
-    
+
     descriptionField.addEventListener('input', function() {
         charCounter.textContent = this.value.length;
     });
-    
+
     // Form validation
     const form = document.getElementById('createCampaignForm');
     form.addEventListener('submit', function(e) {
         let isValid = true;
-        
+
         // Validate required fields
         form.querySelectorAll('[required]').forEach(field => {
             if (!field.value) {
@@ -269,19 +315,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 removeError(field);
             }
         });
-        
+
         // Validate wallet address format
         const walletField = form.querySelector('[name="wallet_address"]');
         if (walletField.value && !walletField.value.match(/^0x[a-fA-F0-9]{40}$/)) {
             isValid = false;
             showError(walletField, 'Please enter a valid Ethereum wallet address');
         }
-        
+
         if (!isValid) {
             e.preventDefault();
         }
     });
-    
+
     function showError(field, message) {
         removeError(field);
         const errorDiv = document.createElement('div');
@@ -290,7 +336,7 @@ document.addEventListener('DOMContentLoaded', function() {
         field.classList.add('is-invalid');
         field.parentNode.appendChild(errorDiv);
     }
-    
+
     function removeError(field) {
         field.classList.remove('is-invalid');
         const error = field.parentNode.querySelector('.invalid-feedback');

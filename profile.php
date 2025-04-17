@@ -9,9 +9,9 @@ if (!isset($_SESSION['user'])) {
           </div>';
 } else {
     $userID = $_SESSION['user']['UserID'];
-    
-    $stmt = $conn->prepare("SELECT U.*, E.Email FROM USERS U 
-                           LEFT JOIN EMAIL E ON U.UserID = E.UserID AND E.Primary_Email = TRUE 
+
+    $stmt = $conn->prepare("SELECT U.*, E.Email FROM USERS U
+                           LEFT JOIN EMAIL E ON U.UserID = E.UserID AND E.Primary_Email = TRUE
                            WHERE U.UserID = ?");
     $stmt->bind_param("i", $userID);
     $stmt->execute();
@@ -87,7 +87,7 @@ if (!isset($_SESSION['user'])) {
                                 <div class="wallet-box bg-light p-3 rounded">
                                     <div class="d-flex justify-content-between align-items-center mb-2">
                                         <label class="text-muted mb-0">Wallet Address</label>
-                                        <button class="btn btn-sm btn-outline-primary copy-address" 
+                                        <button class="btn btn-sm btn-outline-primary copy-address"
                                                 data-address="<?php echo htmlspecialchars($user['Wallet_Address']); ?>">
                                             <i class="fas fa-copy mr-1"></i>Copy
                                         </button>
@@ -157,6 +157,44 @@ if (!isset($_SESSION['user'])) {
         .badge {
             font-size: 0.875rem;
             padding: 0.5rem 1rem;
+        }
+
+        /* Dark Mode Styles */
+        .dark-mode .card-header.bg-primary {
+            background-color: #3046eb !important;
+        }
+
+        .dark-mode .text-primary {
+            color: #6d8eff !important;
+        }
+
+        .dark-mode .badge-light {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #e0e0e0;
+        }
+
+        .dark-mode .profile-section:not(:last-child)::after {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .dark-mode .wallet-box {
+            background-color: #2d2d2d !important;
+            border-left: 4px solid #4361ee;
+        }
+
+        .dark-mode .text-muted {
+            color: #aaa !important;
+        }
+
+        .dark-mode .btn-outline-primary {
+            color: #6d8eff;
+            border-color: #6d8eff;
+        }
+
+        .dark-mode .btn-outline-primary:hover {
+            background-color: #3046eb;
+            color: #fff;
+            border-color: #3046eb;
         }
         </style>
 

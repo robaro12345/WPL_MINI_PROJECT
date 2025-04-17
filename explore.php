@@ -6,12 +6,12 @@ $category = isset($_GET['category']) ? $_GET['category'] : 'all';
 $status = isset($_GET['status']) ? $_GET['status'] : 'active';
 
 // Build query to handle both old and new image paths
-$query = "SELECT c.*, 
+$query = "SELECT c.*,
                  COALESCE(u.Fname, o.NAME) as Creator_Name,
                  COUNT(DISTINCT d.DonationID) as Donor_Count,
                  r.URL as Image_URL
-          FROM CAMPAIGN c 
-          LEFT JOIN USERS u ON c.CRID_USER = u.UserID 
+          FROM CAMPAIGN c
+          LEFT JOIN USERS u ON c.CRID_USER = u.UserID
           LEFT JOIN ORGANISATION o ON c.CRID_ORG = o.OrgID
           LEFT JOIN DONATION d ON c.CID = d.CampaignID
           LEFT JOIN RESOURCES r ON c.CID = r.CampID AND r.TYPE = 'image'
@@ -62,12 +62,12 @@ $result = $conn->query($query);
             <div class="col-lg-8 mx-auto text-center">
                 <h1 class="display-4 font-weight-bold mb-4">Explore Campaigns</h1>
                 <p class="lead mb-4">Discover meaningful causes and make a difference in your community</p>
-                
+
                 <!-- Search Form -->
                 <form method="GET" action="" class="search-form mb-0">
                     <input type="hidden" name="page" value="explore">
                     <div class="input-group">
-                        <input type="text" name="search" class="form-control form-control-lg" 
+                        <input type="text" name="search" class="form-control form-control-lg"
                                placeholder="Search campaigns..." value="<?php echo htmlspecialchars($search); ?>">
                         <div class="input-group-append">
                             <button type="submit" class="btn btn-light px-4">
@@ -88,7 +88,7 @@ $result = $conn->query($query);
             <form method="GET" action="" class="row align-items-end">
                 <input type="hidden" name="page" value="explore">
                 <input type="hidden" name="search" value="<?php echo htmlspecialchars($search); ?>">
-                
+
                 <div class="col-md-3 mb-3">
                     <label class="text-muted">Sort By</label>
                     <select name="sort" class="form-control" onchange="this.form.submit()">
@@ -98,7 +98,7 @@ $result = $conn->query($query);
                         <option value="ending_soon" <?php echo $sort === 'ending_soon' ? 'selected' : ''; ?>>Ending Soon</option>
                     </select>
                 </div>
-                
+
                 <div class="col-md-3 mb-3">
                     <label class="text-muted">Category</label>
                     <select name="category" class="form-control" onchange="this.form.submit()">
@@ -110,7 +110,7 @@ $result = $conn->query($query);
                         <option value="Technology" <?php echo $category === 'Technology' ? 'selected' : ''; ?>>Technology</option>
                     </select>
                 </div>
-                
+
                 <div class="col-md-3 mb-3">
                     <label class="text-muted">Status</label>
                     <select name="status" class="form-control" onchange="this.form.submit()">
@@ -119,7 +119,7 @@ $result = $conn->query($query);
                         <option value="all" <?php echo $status === 'all' ? 'selected' : ''; ?>>All</option>
                     </select>
                 </div>
-                
+
                 <div class="col-md-3 mb-3">
                     <button type="button" class="btn btn-outline-secondary btn-block" onclick="resetFilters()">
                         <i class="fas fa-undo mr-2"></i>Reset Filters
@@ -141,14 +141,14 @@ $result = $conn->query($query);
                 <div class="col-md-6 col-lg-4 mb-4">
                     <div class="card campaign-card border-0 shadow-sm h-100">
                         <?php if (!empty($campaign['Image_URL'])): ?>
-                            <img src="uploads/<?php echo htmlspecialchars($campaign['Image_URL']); ?>" 
+                            <img src="uploads/<?php echo htmlspecialchars($campaign['Image_URL']); ?>"
                                  class="card-img-top campaign-img" alt="Campaign Image">
                         <?php else: ?>
                             <div class="card-img-top campaign-img d-flex align-items-center justify-content-center bg-light">
                                 <i class="fas fa-image fa-3x text-muted"></i>
                             </div>
                         <?php endif; ?>
-                        
+
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <span class="badge badge-primary px-3 py-2">
@@ -159,24 +159,24 @@ $result = $conn->query($query);
                                     <?php echo $daysLeft > 0 ? $daysLeft . ' days left' : 'Ended'; ?>
                                 </span>
                             </div>
-                            
+
                             <h5 class="card-title mb-3">
-                                <a href="?page=campaign_detail&cid=<?php echo $campaign['CID']; ?>" 
+                                <a href="?page=campaign_detail&cid=<?php echo $campaign['CID']; ?>"
                                    class="text-dark text-decoration-none campaign-title">
                                     <?php echo htmlspecialchars($campaign['Name']); ?>
                                 </a>
                             </h5>
-                            
+
                             <p class="text-muted campaign-description">
                                 <?php echo substr(htmlspecialchars($campaign['Description']), 0, 100) . '...'; ?>
                             </p>
-                            
+
                             <div class="progress mb-3" style="height: 10px;">
-                                <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" 
+                                <div class="progress-bar bg-success progress-bar-striped progress-bar-animated"
                                      role="progressbar" style="width: <?php echo $progress; ?>%">
                                 </div>
                             </div>
-                            
+
                             <div class="d-flex justify-content-between text-muted mb-3">
                                 <span>
                                     <i class="fas fa-chart-pie mr-1"></i>
@@ -187,7 +187,7 @@ $result = $conn->query($query);
                                     <?php echo $campaign['Donor_Count']; ?> donors
                                 </span>
                             </div>
-                            
+
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
                                     <strong class="text-primary">
@@ -197,7 +197,7 @@ $result = $conn->query($query);
                                         raised of $<?php echo number_format($campaign['Goal'], 2); ?>
                                     </small>
                                 </div>
-                                <a href="?page=campaign_detail&cid=<?php echo $campaign['CID']; ?>" 
+                                <a href="?page=campaign_detail&cid=<?php echo $campaign['CID']; ?>"
                                    class="btn btn-outline-primary">
                                     View Details
                                 </a>
@@ -283,6 +283,77 @@ select.form-control {
 }
 .col-md-3 {
     min-width: 200px;
+}
+
+/* Dark mode specific styles for explore page */
+.dark-mode .explore-header {
+    background: linear-gradient(135deg, #3046eb 0%, #1e2a8f 100%);
+}
+.dark-mode .campaign-card {
+    background-color: #1e1e1e;
+    border-color: #333;
+}
+.dark-mode .campaign-card:hover {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3) !important;
+}
+.dark-mode .campaign-img.d-flex {
+    background-color: #2d2d2d !important;
+}
+.dark-mode .campaign-title a {
+    color: #e0e0e0;
+    text-decoration: none;
+}
+.dark-mode .campaign-title a:hover {
+    color: #4361ee;
+}
+.dark-mode .btn-outline-primary {
+    color: #4361ee;
+    border-color: #4361ee;
+}
+.dark-mode .btn-outline-primary:hover {
+    background-color: #4361ee;
+    color: #fff;
+}
+.dark-mode .btn-outline-secondary {
+    color: #aaa;
+    border-color: #555;
+}
+.dark-mode .btn-outline-secondary:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+/* Additional dark mode fixes */
+.dark-mode .bg-light {
+    background-color: #1e1e1e !important;
+}
+
+.dark-mode .card {
+    background-color: #2d2d2d;
+}
+
+.dark-mode .card-img-top.campaign-img.d-flex {
+    background-color: #333 !important;
+}
+
+.dark-mode .card-img-top.campaign-img.d-flex i {
+    color: #555;
+}
+
+.dark-mode .text-dark {
+    color: #e0e0e0 !important;
+}
+
+.dark-mode h2,
+.dark-mode h3,
+.dark-mode h4,
+.dark-mode h5,
+.dark-mode h6 {
+    color: #e0e0e0;
+}
+
+.dark-mode label.text-muted {
+    color: #aaa !important;
 }
 </style>
 

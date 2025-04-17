@@ -103,6 +103,62 @@ p { color: #555; }
     transform: translateY(-10px);
     box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important;
 }
+
+/* Dark Mode Styles */
+.dark-mode .about-hero {
+    background: linear-gradient(135deg, #3046eb 0%, #1e2a8f 100%);
+}
+
+.dark-mode .bg-light {
+    background-color: #1e1e1e !important;
+}
+
+.dark-mode .how-it-works-section {
+    background-color: #1e1e1e !important;
+}
+
+.dark-mode .how-it-works-section h2,
+.dark-mode .how-it-works-section h5 {
+    color: #e0e0e0;
+}
+
+.dark-mode .how-it-works-section .text-muted {
+    color: #aaa !important;
+}
+
+.dark-mode .step-circle {
+    background: #4361ee;
+    box-shadow: 0 0 15px rgba(67, 97, 238, 0.5);
+}
+
+.dark-mode .card {
+    background-color: #2d2d2d;
+    border-color: #333;
+}
+
+.dark-mode .contact-item {
+    background-color: #2d2d2d;
+}
+
+.dark-mode .text-muted {
+    color: #aaa !important;
+}
+
+.dark-mode .text-primary {
+    color: #6d8eff !important;
+}
+
+.dark-mode .value-icon.bg-primary {
+    background-color: #3046eb !important;
+}
+
+.dark-mode .value-icon.bg-success {
+    background-color: #28a745 !important;
+}
+
+.dark-mode .value-icon.bg-info {
+    background-color: #17a2b8 !important;
+}
 </style>
 
 <!-- About Hero Section -->
@@ -133,7 +189,7 @@ p { color: #555; }
                         </div>
                         <div class="col-md-8">
                             <p class="lead text-muted mb-0">
-                                To create a transparent, secure, and efficient platform that connects donors with meaningful causes, 
+                                To create a transparent, secure, and efficient platform that connects donors with meaningful causes,
                                 leveraging blockchain technology to ensure trust and accountability in charitable giving.
                             </p>
                         </div>
@@ -187,7 +243,7 @@ p { color: #555; }
 </section>
 
 <!-- How It Works Section -->
-<section class="py-5 bg-light">
+<section class="py-5 bg-light how-it-works-section">
     <div class="container">
         <h2 class="text-center mb-5">How It Works</h2>
         <div class="row">
@@ -224,8 +280,8 @@ p { color: #555; }
                 <div class="card border-0 shadow-sm hover-card">
                     <div class="card-body text-center p-4">
                         <div class="team-avatar mb-3">
-                            <img src="https://ui-avatars.com/api/?name=John+Doe&background=4361ee&color=fff" 
-                                 alt="John Doe" class="rounded-circle">
+                            <img src="https://ui-avatars.com/api/?name=alt+f4&background=4361ee&color=fff"
+                                 alt="altf4" class="rounded-circle">
                         </div>
                         <h4>altf4</h4>
                         <p class="text-primary mb-2">Founder & CEO</p>
@@ -237,8 +293,8 @@ p { color: #555; }
                 <div class="card border-0 shadow-sm hover-card">
                     <div class="card-body text-center p-4">
                         <div class="team-avatar mb-3">
-                            <img src="https://ui-avatars.com/api/?name=Jane+Smith&background=4361ee&color=fff" 
-                                 alt="Jane Smith" class="rounded-circle">
+                            <img src="https://ui-avatars.com/api/?name=Hemlock+Dropworth&background=4361ee&color=fff"
+                                 alt="Hemlock Dropworth" class="rounded-circle">
                         </div>
                         <h4>Hemlock Dropworth</h4>
                         <p class="text-primary mb-2">Head of Operations</p>
@@ -250,8 +306,8 @@ p { color: #555; }
                 <div class="card border-0 shadow-sm hover-card">
                     <div class="card-body text-center p-4">
                         <div class="team-avatar mb-3">
-                            <img src="https://ui-avatars.com/api/?name=Mike+Johnson&background=4361ee&color=fff" 
-                                 alt="Mike Johnson" class="rounded-circle">
+                            <img src="https://ui-avatars.com/api/?name=TBNRobaro&background=4361ee&color=fff"
+                                 alt="TBNRobaro" class="rounded-circle">
                         </div>
                         <h4>TBNRobaro</h4>
                         <p class="text-primary mb-2">Technical Lead</p>
